@@ -3,10 +3,14 @@ const db = require("../../rc/models");
 
 const authenticate = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
+  console.log(token);
+  
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("====", decoded.id);
+    
     const user = await db.Register.findByPk(decoded.id, {
       include: {
         model: db.Role,
@@ -27,8 +31,8 @@ const authenticate = async (req, res, next) => {
 const authorize = (roles) => {
   return (req, res, next) => {
     const userRole = req.user.roles.dataValues.role;
-    // console.log("===",  req.user);
-    // console.log("===", req.user.roles.dataValues);
+    console.log("===",  req.user);
+    console.log("===", req.user.roles.dataValues);
     if (!roles.includes(userRole)) {
       return res.status(403).json({ message: "Access denied" });
     }

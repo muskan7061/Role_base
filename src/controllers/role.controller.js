@@ -4,6 +4,7 @@ const { roleSchema } = require("../validations/role.validation");
 const role = async (req, res) => {
   try {
     const { role } = req.body;
+console.log(role);
 
     // Validate role input using Joi validation
     const { error } = roleSchema.validate(req.body);

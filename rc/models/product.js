@@ -1,4 +1,5 @@
 "use strict";
+const { INTEGER } = require("sequelize");
 const { Model } = require("sequelize");
 const slugify = require("slugify");
 module.exports = (sequelize, DataTypes) => {
@@ -13,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "productID",
         as: "categories"
       })
+      Product.belongsTo(models.Register,{
+        foreignKey: "registerID",
+        as: "register"
+      })
     }
   }
   Product.init(
@@ -24,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       slug: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
       stock: DataTypes.INTEGER,
+      registerID:{
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Registers', 
+          key: 'id',
+        },
+      }
     },
     {
       sequelize,

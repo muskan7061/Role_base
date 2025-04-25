@@ -3,7 +3,9 @@ const { productSchema } = require("../validations/product.validation");
 
 const product = async (req, res) => {
   try {
-    const { name, description, price, status, stock } = req.body;
+    const { name, description, price, status, stock, registerID } = req.body;
+    console.log(registerID);
+    
       // Validate role input using Joi validation     
       const { error } = productSchema.validate(req.body);
       if (error) {
@@ -14,7 +16,7 @@ const product = async (req, res) => {
       }
     // console.log(name, description, price, status, stock);
     if (
-      [name, description, price, status, stock].some(
+      [name, description, price, status, stock, registerID].some(
         (data) => data.trim() === ""
       )
     ) {
@@ -42,6 +44,7 @@ const product = async (req, res) => {
       price,
       status,
       stock,
+      registerID
     });
     if (!createProduct) {
       return res.status(409).json({

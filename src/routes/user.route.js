@@ -20,12 +20,14 @@ router.post("/create-register",  upload.single("image"),  validate(registerSchem
 
 router.post("/login", login )
 
-router.post("/product",  authenticate, authorize(['admin']), upload.single("image"), validate(productSchema) ,  product )
+router.post("/product",  authenticate, authorize(['seller']), upload.single("image"), validate(productSchema) ,  product )
 
 router.get("/get-all-porduct",  authenticate, authorize(['admin']),  getAllProduct )
 
 router.post("/category", validate(categorySchema),  category)
 
 router.post("/sub-category", validate(subCategorySchema), subCategory)
+
+
 
 module.exports = router

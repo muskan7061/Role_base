@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "roleID",
         as: "roles",
       });
+      Register.hasMany(models.Product, {
+        foreignKey: "registerID",
+        as: "products"
+      })
     }
+
+
   }
   Register.init(
     {

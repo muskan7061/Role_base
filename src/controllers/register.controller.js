@@ -6,6 +6,8 @@ const jwt  = require("jsonwebtoken")
 const register = async (req, res) => {
   try {
     const {name,username,email,age,countryCode,phone,address,state,city,roleID,password} = req.body
+    console.log(roleID);
+    
      // Validate role input using Joi validation     
     const { error } = registerSchema.validate(req.body);
     if (error) {
