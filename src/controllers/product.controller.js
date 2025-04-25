@@ -69,7 +69,20 @@ const product = async (req, res) => {
 
 const getAllProduct = async (req, res) =>{
     try {
-        const getAll = await db.Product.findAll()
+        const getAll = await db.Product.findAll({
+          include :[ 
+            {
+            model: db.Category,
+            as: "categories",
+            include:[
+              {
+                model: db.subCategory,
+                as: "subCategory"
+              }
+            ]
+          },
+        ]
+        })
         return res.status(200).json({
             data: getAll
         })
