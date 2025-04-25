@@ -15,7 +15,7 @@ router.post("/create-register",  upload.single("image"),  validate(registerSchem
 
 router.post("/login", login )
 
-router.post("/product",  authenticate, authorize(['admin', 'seller']), upload.single("image"),   product )
+router.post("/product",  authenticate, authorize(['admin']), upload.single("image"),   product )
 
 router.get("/get-all-porduct",  authenticate, authorize(['admin']),  getAllProduct )
 

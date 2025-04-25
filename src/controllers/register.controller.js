@@ -112,6 +112,7 @@ const login = async (req, res) =>{
                 phone: loggedInUser.phone,
                 state: loggedInUser.state,
                 city:loggedInUser.city,
+                roleID: loggedInUser.roleID
 
             }, 
             process.env.JWT_SECRET
