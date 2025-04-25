@@ -2,49 +2,41 @@
 const { Model } = require("sequelize");
 const slugify = require("slugify");
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class subCategory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Category.belongsTo(models.Product, {
-        foreignKey: "productID",
-        as: "products",
-      });
-
-      Category.hasMany(models.subCategory, {
+      subCategory.belongsTo(models.Category, {
         foreignKey: "categoryID",
-        as: "subCategory"
-      })
+        as: "Category",
+      });
     }
   }
-  Category.init(
+  subCategory.init(
     {
       name: DataTypes.STRING,
       status: DataTypes.BOOLEAN,
       digital: DataTypes.BOOLEAN,
       slug: DataTypes.STRING,
-      productID: {
+      categoryID: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Products",
+          model: "categories",
           key: "id",
         },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
       },
     },
     {
       sequelize,
-      modelName: "Category",
+      modelName: "subCategory",
     }
   );
-  // Hook to auto-generate slug
-  Category.beforeCreate((value) => {
-    value.slug = slugify(value.name, { lower: true });
-  });
-
-  return Category;
+    // Hook to auto-generate slug
+    subCategory.beforeCreate((value) => {
+      value.slug = slugify(value.name, { lower: true });
+    });
+  return subCategory;
 };

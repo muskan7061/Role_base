@@ -21,6 +21,15 @@ module.exports = {
       slug: {
         type: Sequelize.STRING
       },
+      productID:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Products',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

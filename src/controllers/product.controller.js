@@ -1,10 +1,18 @@
 const db = require("../../rc/models");
+const { productSchema } = require("../validations/product.validation");
 
 const product = async (req, res) => {
   try {
     const { name, description, price, status, stock } = req.body;
-    console.log(name, description, price, status, stock);
-
+      // Validate role input using Joi validation     
+      const { error } = productSchema.validate(req.body);
+      if (error) {
+        return res.status(400).json({
+          status: 400,
+          message: error.details[0].message,
+        });
+      }
+    // console.log(name, description, price, status, stock);
     if (
       [name, description, price, status, stock].some(
         (data) => data.trim() === ""
@@ -25,7 +33,7 @@ const product = async (req, res) => {
         message: "Product already exist",
       });
     }
-    console.log(existProduct);
+    // console.log(existProduct);
 
     const createProduct = await db.Product.create({
       name,

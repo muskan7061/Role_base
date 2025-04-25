@@ -121,7 +121,7 @@ const login = async (req, res) =>{
               expiresIn: process.env.JWT_SECRET_EXPIRY,
             }
         )
-        console.log("===",token);
+        // console.log("===",token);
     
         res.cookie("token", token, {
             httpOnly: true,
