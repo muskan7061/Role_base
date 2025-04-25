@@ -31,8 +31,8 @@ const authenticate = async (req, res, next) => {
 const authorize = (roles) => {
   return (req, res, next) => {
     const userRole = req.user.roles.dataValues.role;
-    console.log("===",  req.user);
-    console.log("===", req.user.roles.dataValues);
+    // console.log("===",  req.user);
+    // console.log("===", req.user.roles.dataValues);
     if (!roles.includes(userRole)) {
       return res.status(403).json({ message: "Access denied" });
     }

@@ -144,4 +144,20 @@ const login = async (req, res) =>{
     }
 }
 
-module.exports = { register,login };
+const getAllUser = async (req, res) =>{
+  try {
+    const getAllUser = await db.Register.findAll()
+    return res.status(200).json({
+      message: "All user fetch successfully",
+      data: getAllUser
+
+    })
+  } catch (error) {
+    console.log("Error in getAllUser Api", error);
+    return res.status(500).json({
+        status: 500,
+        error: error.message
+    })
+  }
+}
+module.exports = { register,login,getAllUser };

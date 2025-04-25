@@ -82,4 +82,23 @@ const getAllProduct = async (req, res) =>{
     }
 }
 
-module.exports = { product, getAllProduct };
+
+const getOneProduct = async (req, res) =>{
+  try {
+      const {id} = req.params
+      const getOne = await db.Product.findOne({where:{id:id}})
+      return res.status(200).json({
+          data: getOne
+      })
+  } catch (error) {
+      console.log("Error in getOneProduct Api", error);
+      return res.status(500).json({
+        status: 500,
+        error: error.message,
+      });
+  }
+}
+
+
+
+module.exports = { product, getAllProduct,getOneProduct };
