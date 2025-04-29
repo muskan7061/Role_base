@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "registerID",
         as: "register"
       })
+      Product.belongsTo(models.CartItem,{
+        foreignKey: "cartItemID",
+        as: "cartitems"
+      })
     }
   }
   Product.init(

@@ -10,7 +10,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       registerID: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Registers',
+          key: 'id',
+        },
+      },
+      isOrdered: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
