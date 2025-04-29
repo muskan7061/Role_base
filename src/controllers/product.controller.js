@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const db = require("../../rc/models");
 const { productSchema } = require("../validations/product.validation");
 
@@ -26,15 +27,15 @@ const product = async (req, res) => {
       });
     }
 
-    const existProduct = await db.Product.findOne({
-      where: { name },
-    });
-    if (existProduct) {
-      return res.status(409).json({
-        status: 409,
-        message: "Product already exist",
-      });
-    }
+    // const existProduct = await db.Product.findOne({
+    //   where: { name },
+    // });
+    // if (existProduct) {
+    //   return res.status(409).json({
+    //     status: 409,
+    //     message: "Product already exist",
+    //   });
+    // }
     // console.log(existProduct);
 
     const createProduct = await db.Product.create({
@@ -152,13 +153,13 @@ const deleteProduct = async (req, res) => {
     const { id } = req.params;
     if (!id) {
       return res.status(409).json({
-        message: "Product ID is required"
+        message: "Product ID is required",
       });
     }
     const showAllDeleted = await db.Product.findByPk(id);
     if (!showAllDeleted) {
       return res.status(409).json({
-        message: "data not found"
+        message: "data not found",
       });
     }
     console.log(showAllDeleted);
@@ -166,7 +167,7 @@ const deleteProduct = async (req, res) => {
     const deleteProduct = await db.Product.destroy({ where: { id: id } });
     if (!deleteProduct) {
       return res.status(409).json({
-        message: "id not found what you gave "
+        message: "id not found what you gave ",
       });
     }
     console.log(deleteProduct);
@@ -184,10 +185,32 @@ const deleteProduct = async (req, res) => {
     });
   }
 };
+
+const filterProduct = async (req, res) => {
+  try {
+    const {price, name,description } = req.body
+    const filtered = await db.Product.findAll({ 
+      where: {name:name, price:price, description:description},
+      attributes: { exclude: ['password', 'description', 'stock', 'status', 'image', 'slug', 'registerID'] }
+    });
+    return res.status(200).json({
+      status: 200,
+      message: "Product filtered succcesfully",
+      data: filtered,
+    });
+  } catch (error) {
+    console.log("Error in filterProduct Api", error);
+    return res.status(500).json({
+      status: 500,
+      error: error.message,
+    });
+  }
+};
 module.exports = {
   product,
   getAllProduct,
   getOneProduct,
   updateProduct,
   deleteProduct,
+  filterProduct,
 };

@@ -1,6 +1,6 @@
 const db = require("../../rc/models");
 const {registerSchema} = require("../validations/register.validation")
-const { Op } = require("sequelize");
+const { Op, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt")
 const jwt  = require("jsonwebtoken")
 const register = async (req, res) => {
@@ -166,4 +166,27 @@ const getAllUser = async (req, res) =>{
     })
   }
 }
-module.exports = { register,login,getAllUser };
+
+const getOneUser = async (req, res) =>{
+  try {
+    const {id} = req.params
+    const getOneUser = await db.Register.findOne({where: {id: id}})
+    if(!getOneUser){
+      return res.status(409).json({
+           message: "User not found",
+      })
+    }
+    return res.status(200).json({
+      message: "User fetch successfully",
+      data: getOneUser
+    })
+  } catch (error) {
+    console.log("Error in getOneUser Api", error);
+    return res.status(500).json({
+        status: 500,
+        error: error.message
+    })
+  }
+}
+
+module.exports = { register,login,getAllUser, getOneUser};

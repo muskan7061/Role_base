@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Product",
+      timestamps: false
     }
   );
   // Hook to auto-generate slug

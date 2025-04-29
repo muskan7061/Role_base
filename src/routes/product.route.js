@@ -3,7 +3,7 @@ const { authenticate, authorize } = require("../middlewares/auth.middleware")
 const upload = require("../middlewares/multer.middleware")
 const validate = require("../middlewares/validate.middleware")
 const { productSchema } = require("../validations/product.validation")
-const { product, getAllProduct, getOneProduct, updateProduct, deleteProduct } = require("../controllers/product.controller")
+const { product, getAllProduct, getOneProduct, updateProduct, deleteProduct, filterProduct } = require("../controllers/product.controller")
 const {subCategorySchema} = require("../validations/subCategory.validation")
 const router = express.Router()
 
@@ -18,5 +18,7 @@ router.get("/get-product/:id",  authenticate, authorize(['admin','seller']), val
 router.put('/update-product/:id',  authenticate, authorize(['admin','seller']), validate(productSchema), updateProduct)
 
 router.delete('/delete-product/:id',   authenticate, authorize(['admin','seller']),validate(productSchema), deleteProduct)
+
+router.get("/filter-all-porduct",  authenticate, authorize(['admin','user']),  filterProduct )
 
 module.exports = router
