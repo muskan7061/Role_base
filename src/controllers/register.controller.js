@@ -75,6 +75,8 @@ const register = async (req, res) => {
 const login = async (req, res) =>{
     try {
         const {email, username , password} = req.body
+        console.log(email, username , password);
+        
         if([email, username, password].some((data) => data.trim() ==="")){
             return res.status(409).json({
                 status: 409,
@@ -86,6 +88,8 @@ const login = async (req, res) =>{
                 [Op.or]: [{ username: username }, { email: email }],
               },
         })
+        // console.log(userFind);
+        
         const validPassword = await bcrypt.compare(password, userFind.password)
         if(!validPassword){
             return res.status(409).json({
@@ -93,6 +97,8 @@ const login = async (req, res) =>{
                 message: "Invalid User credentials",
               });
         }
+        // console.log(validPassword);
+        
         if(!userFind){
             return res.status(404).json({
                 status: 404,
