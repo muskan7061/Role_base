@@ -1,6 +1,6 @@
 const db = require("../../rc/models");
 const {registerSchema} = require("../validations/register.validation")
-const { Op, DataTypes } = require("sequelize");
+const { Op } = require("sequelize");
 const bcrypt = require("bcrypt")
 const jwt  = require("jsonwebtoken")
 const register = async (req, res) => {

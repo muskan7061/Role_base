@@ -1,15 +1,16 @@
 const db = require("../../rc/models");
+const { Op } = require("sequelize");
 const cartitems = async (req, res) => {
   try {
     const { cartID, productID, quantity = 1 } = req.body;
     console.log(cartID, productID, quantity);
-    // Basic validation
     if (!cartID && !productID) {
       return res.status(400).json({
         status: 400,
         message: "cartID and productID are required",
       });
     }
+
     const createdCartItems = await db.CartItem.create({
       cartID,
       productID,
@@ -20,8 +21,8 @@ const cartitems = async (req, res) => {
       where: { id: createdCartItems.id },
       include: {
         model: db.Product,
-        as: "products", // This must match association alias
-        attributes: ["id", "name", "description", "price", "stock", "image"], // add/remove as per your model
+        as: "product",
+        attributes: ["id", "name", "description", "price", "stock", "image"],
       },
     });
     return res.status(200).json({

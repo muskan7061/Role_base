@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "registerID",
         as: "register"
       })
-      Product.belongsTo(models.CartItem,{
-        foreignKey: "cartItemID",
-        as: "cartitems"
-      })
+       Product.hasMany(models.CartItem, {
+        foreignKey: "productID",
+        as: "cartItems"
+      });
     }
   }
   Product.init(

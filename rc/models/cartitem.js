@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "cartID",
         as: "carts"
       })
-      CartItem.hasMany(models.Product,{
-        foreignKey: "cartItemID",
-        as: "products"
-
+      CartItem.belongsTo(models.Product, {
+        foreignKey: "productID",
+        as: "product"
       })
 
     }
@@ -49,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'CartItem',
+    timestamps: false
   });
   return CartItem;
 };
