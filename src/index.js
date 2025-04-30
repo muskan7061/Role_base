@@ -5,7 +5,7 @@ const roleRouter = require("./routes/user.route")
 const registerRouter = require("./routes/register.route")
 const productRouter = require("./routes/product.route")
 const categoryRouter = require("./routes/category.route")
-const cartRouter = require("./routes/cart.route")
+// const cartRouter = require("./routes/cart.route")
 dotenv.config("./.env");
 
 
@@ -22,7 +22,7 @@ app.use("/api/product", productRouter)
 
 app.use("/api/category", categoryRouter)
 
-app.use("/api/cart", cartRouter)
+// app.use("/api/cart", cartRouter)
 
 sequelize
   .sync({ force: true })

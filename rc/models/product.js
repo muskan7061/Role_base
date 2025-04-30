@@ -1,5 +1,5 @@
 "use strict";
-const { INTEGER } = require("sequelize");
+
 const { Model } = require("sequelize");
 const slugify = require("slugify");
 module.exports = (sequelize, DataTypes) => {
@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "registerID",
         as: "register"
       })
-      Product.hasMany(models.cartItem, {
-        foreignKey: "productID",  
-        as: "cartItems"
-      });
+      // Product.hasMany(models.cartitem, {
+      //   foreignKey: "productID",  
+      //   as: "cartitem"
+      // });
 
     }
   }
