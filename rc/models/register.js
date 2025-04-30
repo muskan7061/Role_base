@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "registerID",
         as: "products"
       })
-      Register.hasOne(models.Cart,{
+      Register.hasOne(models.cart,{
         foreignKey: "registerID",
         as: "carts"
       })

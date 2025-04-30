@@ -23,6 +23,7 @@ app.use("/api/product", productRouter)
 app.use("/api/category", categoryRouter)
 
 app.use("/api/cart", cartRouter)
+
 sequelize
   .sync({ force: true })
   .then(() => console.log("Sync"))
